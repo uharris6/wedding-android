@@ -12,14 +12,19 @@
             android:title="@string/title_sites"/>
 
     <item
-            android:id="@+id/navigation_invitation"
-            android:icon="@drawable/ic_action_invitation"
-            android:title="@string/title_invitation"/>
+            android:id="@+id/navigation_camera"
+            android:icon="@drawable/ic_photo_camera_white"
+            android:title="@string/title_camera"/>
 
     <item
             android:id="@+id/navigation_gift"
             android:icon="@drawable/ic_action_gift"
             android:title="@string/title_gift"/>
+
+    <item
+            android:id="@+id/navigation_wishes"
+            android:icon="@drawable/ic_action_gift"
+            android:title="@string/title_wishes"/>
 
 
 </menu>

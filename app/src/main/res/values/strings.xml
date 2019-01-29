@@ -3,5 +3,9 @@
     <string name="title_home">Inicio</string>
     <string name="title_sites">Sitios de Interés</string>
     <string name="title_gift">Regalos de boda</string>
-    <string name="title_invitation">Invitación</string>
+    <string name="title_camera">Camera</string>
+    <string name="title_wishes">Deseos</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
