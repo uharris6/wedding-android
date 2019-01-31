@@ -1,4 +1,4 @@
-package com.vendomatica.vendowallet.presentation.state
+package com.uharris.wedding.presentation.state
 
 class Resource<out T> constructor(
     val status: ResourceState,

@@ -23,7 +23,7 @@ ext {
     supportLibraryVersion = '26.1.0'
     timberVersion = '4.5.1'
     glideVersion = '4.0.0'
-    daggerVersion = '2.11'
+    daggerVersion = '2.16'
     glassfishAnnotationVersion = '10.0-b28'
     archCompVersion = '1.1.1'
     roomVersion = '1.0.0'

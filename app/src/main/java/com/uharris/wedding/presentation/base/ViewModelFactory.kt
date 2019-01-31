@@ -1,4 +1,4 @@
-package com.vendomatica.vendowallet.presentation.base
+package com.uharris.wedding.presentation.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

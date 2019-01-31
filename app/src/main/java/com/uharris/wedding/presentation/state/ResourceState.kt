@@ -1,4 +1,4 @@
-package com.vendomatica.vendowallet.presentation.state
+package com.uharris.wedding.presentation.state
 
 enum class ResourceState {
     LOADING, SUCCESS, ERROR

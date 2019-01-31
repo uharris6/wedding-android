@@ -1,24 +1,28 @@
 package com.uharris.wedding.presentation.sections.wishes
 
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 
 import com.uharris.wedding.R
+import com.uharris.wedding.domain.model.Wish
+import com.uharris.wedding.presentation.base.ViewModelFactory
+import com.uharris.wedding.presentation.state.Resource
+import com.uharris.wedding.presentation.state.ResourceState
+import dagger.android.support.AndroidSupportInjection
+import javax.inject.Inject
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- *
- */
 class WishesFragment : Fragment() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    lateinit var wishesViewModel: WishesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,5 +32,36 @@ class WishesFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_wishes, container, false)
     }
 
+    override fun onAttach(context: Context?) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        wishesViewModel = ViewModelProviders.of(this, viewModelFactory).get(WishesViewModel::class.java)
+
+        wishesViewModel.liveData.observe(this, Observer {
+            it?.let {
+                handleDataState(it)
+            }
+        })
+        wishesViewModel.fetchWishes()
+    }
+
+    private fun handleDataState(resource: Resource<List<Wish>>) {
+        when (resource.status) {
+            ResourceState.SUCCESS -> {
+                resource.data?.let {
+
+                }
+            }
+            ResourceState.LOADING -> {
+
+            }
+            ResourceState.ERROR -> {
+            }
+        }
+    }
 }

@@ -12,9 +12,11 @@ import com.uharris.wedding.presentation.sections.home.HomeFragment
 import com.uharris.wedding.presentation.sections.photos.PhotosFragment
 import com.uharris.wedding.presentation.sections.sites.SitesFragment
 import com.uharris.wedding.presentation.sections.wishes.WishesFragment
+import dagger.android.AndroidInjection
+import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
+class MainActivity : DaggerAppCompatActivity(), ViewPager.OnPageChangeListener {
     override fun onPageScrollStateChanged(state: Int) {
     }
 
@@ -65,6 +67,7 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        AndroidInjection.inject(this)
         setSupportActionBar(toolbar)
 
         setUpViewPager()

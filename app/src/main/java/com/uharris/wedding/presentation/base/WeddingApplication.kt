@@ -1,8 +1,9 @@
-package com.vendomatica.vendowallet.presentation.base
+package com.uharris.wedding.presentation.base
 
 import android.app.Activity
 import android.app.Application
 import androidx.fragment.app.Fragment
+import com.uharris.wedding.presentation.injection.DaggerApplicationComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
@@ -20,11 +21,11 @@ class WeddingApplication : Application(), HasActivityInjector, HasSupportFragmen
     override fun onCreate() {
         super.onCreate()
 
-//        DaggerApplicationComponent
-//                .builder()
-//                .application(this)
-//                .build()
-//                .inject(this)
+        DaggerApplicationComponent
+                .builder()
+                .application(this)
+                .build()
+                .inject(this)
     }
 
     override fun activityInjector(): AndroidInjector<Activity> {
