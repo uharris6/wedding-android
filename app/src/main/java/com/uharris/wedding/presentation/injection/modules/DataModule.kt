@@ -1,10 +1,13 @@
 package com.uharris.wedding.presentation.injection.modules
 
 import com.uharris.wedding.BuildConfig
+import com.uharris.wedding.data.SitesRemote
 import com.uharris.wedding.data.UserRemote
 import com.uharris.wedding.data.WishesRemote
+import com.uharris.wedding.data.remotes.SitesRemoteImpl
 import com.uharris.wedding.data.remotes.UserRemoteImpl
 import com.uharris.wedding.data.remotes.WishesRemoteImpl
+import com.uharris.wedding.data.services.SitesService
 import com.uharris.wedding.data.services.UserService
 import com.uharris.wedding.data.services.WeddingServiceFactory
 import com.uharris.wedding.data.services.WishesService
@@ -28,6 +31,12 @@ abstract class DataModule {
         fun provideWishesWeddingService(): WishesService {
             return WeddingServiceFactory.makeService(BuildConfig.DEBUG)
         }
+
+        @Provides
+        @JvmStatic
+        fun provideSitesWeddingService(): SitesService {
+            return WeddingServiceFactory.makeService(BuildConfig.DEBUG)
+        }
     }
 
     @Binds
@@ -35,4 +44,7 @@ abstract class DataModule {
 
     @Binds
     abstract fun bindWishesRemote(wishesRemote: WishesRemoteImpl): WishesRemote
+
+    @Binds
+    abstract fun bindSitesRemote(sitesRemote: SitesRemoteImpl): SitesRemote
 }

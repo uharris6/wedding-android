@@ -81,9 +81,9 @@ class MainActivity : DaggerAppCompatActivity(), ViewPager.OnPageChangeListener {
         viewPagerAdapter = MainFragmentAdapter(supportFragmentManager)
 
         viewPagerAdapter.addFragment(HomeFragment())
-        viewPagerAdapter.addFragment(GiftFragment())
-        viewPagerAdapter.addFragment(PhotosFragment())
         viewPagerAdapter.addFragment(SitesFragment())
+        viewPagerAdapter.addFragment(PhotosFragment())
+        viewPagerAdapter.addFragment(GiftFragment())
         viewPagerAdapter.addFragment(WishesFragment())
 
         viewPager.adapter = viewPagerAdapter

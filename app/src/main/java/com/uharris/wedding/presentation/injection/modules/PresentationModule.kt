@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.uharris.wedding.presentation.base.ViewModelFactory
 import com.uharris.wedding.presentation.sections.register.RegisterViewModel
+import com.uharris.wedding.presentation.sections.sites.SitesViewModel
 import com.uharris.wedding.presentation.sections.wishes.WishesViewModel
 import dagger.Binds
 import dagger.MapKey
@@ -23,6 +24,11 @@ abstract class PresentationModule {
     @IntoMap
     @ViewModelKey(WishesViewModel::class)
     abstract fun bindWishesViewModel(viewModel: WishesViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SitesViewModel::class)
+    abstract fun bindSitesViewModel(viewModel: SitesViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory

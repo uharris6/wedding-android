@@ -4,6 +4,7 @@ import com.uharris.wedding.domain.executor.PostExecutionThread
 import com.uharris.wedding.presentation.base.UiThread
 import com.uharris.wedding.presentation.sections.main.MainActivity
 import com.uharris.wedding.presentation.sections.register.RegisterActivity
+import com.uharris.wedding.presentation.sections.sites.SitesFragment
 import com.uharris.wedding.presentation.sections.wishes.WishesFragment
 import dagger.Binds
 import dagger.Module
@@ -19,8 +20,11 @@ abstract class UiModule {
     abstract fun contributesRegisterActivty(): RegisterActivity
 
     @ContributesAndroidInjector
-    abstract fun contributesMainActivty(): MainActivity
+    abstract fun contributesMainActivity(): MainActivity
 
     @ContributesAndroidInjector
     abstract fun contributesWishesFragment(): WishesFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributesSitesFragment(): SitesFragment
 }
