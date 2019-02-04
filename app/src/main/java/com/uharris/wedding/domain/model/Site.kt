@@ -9,8 +9,8 @@ data class Site(
     var name: String = "",
     var description: String = "",
     var address: String = "",
-    var latitude: Long = 0,
-    var longitude: Long = 0,
+    var latitude: Double = 0.0,
+    var longitude: Double = 0.0,
     var phone: String = "",
     var email: String = "",
     var secondPhone: String = "",
@@ -22,8 +22,8 @@ data class Site(
         source.readString(),
         source.readString(),
         source.readString(),
-        source.readLong(),
-        source.readLong(),
+        source.readDouble(),
+        source.readDouble(),
         source.readString(),
         source.readString(),
         source.readString(),
@@ -38,8 +38,8 @@ data class Site(
         writeString(name)
         writeString(description)
         writeString(address)
-        writeLong(latitude)
-        writeLong(longitude)
+        writeDouble(latitude)
+        writeDouble(longitude)
         writeString(phone)
         writeString(email)
         writeString(secondPhone)

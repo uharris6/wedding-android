@@ -1,6 +1,7 @@
 package com.uharris.wedding.presentation.sections.sites
 
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,13 +10,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.uharris.wedding.R
 import com.uharris.wedding.domain.model.Site
 import com.uharris.wedding.presentation.base.ViewModelFactory
+import com.uharris.wedding.presentation.sections.sites.detail.SiteDetailActivity
 import com.uharris.wedding.presentation.state.Resource
 import com.uharris.wedding.presentation.state.ResourceState
 import dagger.android.support.AndroidSupportInjection
+import kotlinx.android.synthetic.main.fragment_sites.*
 import javax.inject.Inject
 
 class SitesFragment : Fragment() {
@@ -23,6 +27,10 @@ class SitesFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     lateinit var sitesViewModel: SitesViewModel
+
+    private lateinit var adapter: SitesAdapter
+
+    var sites = mutableListOf<Site>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +50,12 @@ class SitesFragment : Fragment() {
 
         sitesViewModel = ViewModelProviders.of(this, viewModelFactory).get(SitesViewModel::class.java)
 
+        sitesRecyclerView.layoutManager = LinearLayoutManager(context)
+        adapter = SitesAdapter(sites) {
+            SiteDetailActivity.startActivity((context as Activity), it)
+        }
+        sitesRecyclerView.adapter = adapter
+
         sitesViewModel.liveData.observe(this, Observer {
             it?.let {
                 handleDataState(it)
@@ -54,7 +68,9 @@ class SitesFragment : Fragment() {
         when (resource.status) {
             ResourceState.SUCCESS -> {
                 resource.data?.let {
-
+                    sites.clear()
+                    sites.addAll(it)
+                    adapter.setItems(sites)
                 }
             }
             ResourceState.LOADING -> {

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+        android:id="@+id/card_layout"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding ="16dp">
+
+        <ImageView
+                android:id="@+id/siteImage"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@color/colorPrimary"
+                android:scaleType="centerCrop"/>
+
+        <TextView
+                android:id="@+id/siteTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@color/colorPrimary"
+                android:text="Hotel Ávila"
+                android:layout_toRightOf="@+id/siteImage"
+                android:layout_toEndOf="@+id/siteImage"
+                android:paddingLeft="16dp"
+                android:paddingStart="16dp"
+                android:paddingRight="8dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="8dp"/>
+
+        <TextView
+                android:id="@+id/siteAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/siteTitle"
+                android:textSize="14sp"
+                android:textColor="@color/colorAccent"
+                android:text="Av. Jorge Washington San Bernardino"
+                android:layout_toRightOf="@+id/siteImage"
+                android:layout_toEndOf="@+id/siteImage"
+                android:paddingLeft="16dp"
+                android:paddingStart="16dp"
+                android:paddingRight="8dp"
+                android:paddingEnd="8dp"/>
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>
