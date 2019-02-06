@@ -13,8 +13,8 @@ abstract class ApplicationModule {
     companion object {
         @Provides
         @JvmStatic
-        fun provideUserId(context: Context): String {
-            return PreferenceManager.getDefaultSharedPreferences(context).getString("userId", "")
+        fun provideId(context: Context): String {
+            return PreferenceManager.getDefaultSharedPreferences(context).getString("id", "")
         }
     }
 

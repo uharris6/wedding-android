@@ -3,9 +3,6 @@ package com.uharris.wedding.presentation.sections.wishes
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -14,13 +11,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.uharris.wedding.R
 import com.uharris.wedding.domain.model.Wish
 import com.uharris.wedding.presentation.base.ViewModelFactory
+import com.uharris.wedding.presentation.sections.wishes.create.CreateWishFragment
 import com.uharris.wedding.presentation.state.Resource
 import com.uharris.wedding.presentation.state.ResourceState
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_wishes.*
 import javax.inject.Inject
+import android.view.*
+import com.uharris.wedding.presentation.sections.wishes.detail.DetailWishFragment
 
-class WishesFragment : Fragment() {
+
+class WishesFragment : Fragment(), CreateWishFragment.CreateWishListener {
+    override fun getWish(wish: String) {
+        wishesViewModel.sendWish(wish)
+    }
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -28,6 +32,16 @@ class WishesFragment : Fragment() {
 
     private lateinit var adapter: WishesAdapter
     var wishes = mutableListOf<Wish>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater?.inflate(R.menu.menu_wishes, menu)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,12 +56,23 @@ class WishesFragment : Fragment() {
         super.onAttach(context)
     }
 
+    private lateinit var fragment: CreateWishFragment
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if(item?.itemId == R.id.action_create_wish) {
+            fragment = CreateWishFragment.newInstance()
+            fragment.show(childFragmentManager,"create wish")
+        }
+        return true
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         wishesRecyclerView.layoutManager = LinearLayoutManager(context)
         adapter = WishesAdapter(wishes) {
-
+            val fragment = DetailWishFragment.newInstance(it)
+            fragment.show(childFragmentManager, "detail wish")
         }
         wishesRecyclerView.adapter = adapter
 
@@ -59,6 +84,26 @@ class WishesFragment : Fragment() {
             }
         })
         wishesViewModel.fetchWishes()
+
+        wishesViewModel.wishLiveData.observe(this, Observer {
+            it?.let {
+                handleWishState(it)
+            }
+        })
+    }
+
+    private fun handleWishState(resource: Resource<Wish>) {
+        when(resource.status) {
+            ResourceState.SUCCESS -> {
+                resource.data?.let {
+                    wishes.add(it)
+                    adapter.setItems(wishes)
+                    fragment.dismiss()
+                }
+            }
+            ResourceState.LOADING -> {}
+            ResourceState.ERROR -> {}
+        }
     }
 
     private fun handleDataState(resource: Resource<List<Wish>>) {

@@ -3,6 +3,8 @@ package com.uharris.wedding.presentation.injection.modules
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.uharris.wedding.presentation.base.ViewModelFactory
+import com.uharris.wedding.presentation.sections.photos.PhotosViewModel
+import com.uharris.wedding.presentation.sections.photos.add.AddPhotoViewModel
 import com.uharris.wedding.presentation.sections.register.RegisterViewModel
 import com.uharris.wedding.presentation.sections.sites.SitesViewModel
 import com.uharris.wedding.presentation.sections.wishes.WishesViewModel
@@ -29,6 +31,16 @@ abstract class PresentationModule {
     @IntoMap
     @ViewModelKey(SitesViewModel::class)
     abstract fun bindSitesViewModel(viewModel: SitesViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(PhotosViewModel::class)
+    abstract fun bindPhotosViewModel(viewModel: PhotosViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AddPhotoViewModel::class)
+    abstract fun bindAddPhotoViewModel(viewModel: AddPhotoViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory

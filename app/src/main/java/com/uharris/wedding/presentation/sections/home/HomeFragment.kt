@@ -43,7 +43,7 @@ class HomeFragment : Fragment() {
 
         timer = object: CountDownTimer(timeInMillis, 86400000) {
             override fun onFinish() {
-
+                daysTextView.text = "Falta muy poco!!!"
             }
 
             override fun onTick(millisUntilFinished: Long) {

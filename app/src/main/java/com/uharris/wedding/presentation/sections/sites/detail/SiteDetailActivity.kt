@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.text.Html
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +31,7 @@ class SiteDetailActivity : AppCompatActivity() {
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
             it.setDisplayShowHomeEnabled(true)
+            it.title = ""
         }
 
         site = intent.getParcelableExtra(SITE_EXTRA)
@@ -40,7 +42,12 @@ class SiteDetailActivity : AppCompatActivity() {
         collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandedAppBar)
         collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar)
 
-        siteDescription.text = site.description
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            siteDescription.text = Html.fromHtml(site.description, Html.FROM_HTML_MODE_COMPACT)
+        } else {
+            siteDescription.text = Html.fromHtml(site.description)
+        }
+
         siteAddress.text = site.address
 
         val email = String.format(getString(R.string.site_email),site.email)
@@ -97,7 +104,7 @@ class SiteDetailActivity : AppCompatActivity() {
         }
     }
 
-    override fun onNavigateUp(): Boolean {
+    override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
     }

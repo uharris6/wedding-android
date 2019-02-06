@@ -25,7 +25,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/colorAccent"
+                        android:textStyle="bold"
                         android:text="Facebank"/>
 
                 <TextView
@@ -33,7 +34,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="18sp"
-                        android:textColor="@color/colorAccent"
                         android:text="21580007537"/>
 
                 <TextView
@@ -41,7 +41,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
-                        android:textColor="@color/colorAccent"
                         android:text="ABA: 021502189"/>
 
                 <TextView
@@ -49,7 +48,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
-                        android:textColor="@color/colorAccent"
                         android:text="SWIFT: FILCPR22"/>
 
                 <TextView
@@ -58,7 +56,6 @@
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
                         android:layout_marginTop="10dp"
-                        android:textColor="@color/colorAccent"
                         android:text="Ariana Emilia Cabrera Acevedo"/>
 
                 <TextView
@@ -66,7 +63,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
-                        android:textColor="@color/colorAccent"
                         android:text="Direccion: 17 Road 2 Suite 600, Metro Office Park Guaynabo, Puerto Rico 00968-1745"/>
             </LinearLayout>
 
@@ -86,21 +82,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/colorAccent"
+                        android:textStyle="bold"
                         android:text="Zell"/>
 
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="18sp"
-                        android:textColor="@color/colorAccent"
                         android:text="Elías Tarbay"/>
 
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
-                        android:textColor="@color/colorAccent"
                         android:text="ertr407@gmail.com"/>
 
             </LinearLayout>
@@ -122,7 +117,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/colorAccent"
+                        android:textStyle="bold"
                         android:text="Banco Mercantil"/>
 
                 <TextView
@@ -130,7 +126,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="18sp"
-                        android:textColor="@color/colorAccent"
                         android:text="0105 0230 611230074708"/>
 
                 <TextView
@@ -139,7 +134,6 @@
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
                         android:layout_marginTop="10dp"
-                        android:textColor="@color/colorAccent"
                         android:text="Elias Tarbay"/>
 
                 <TextView
@@ -147,7 +141,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
-                        android:textColor="@color/colorAccent"
                         android:text="CI: 19.682.573"/>
 
                 <TextView
@@ -155,7 +148,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
-                        android:textColor="@color/colorAccent"
                         android:text="ertr407@gmail.com"/>
             </LinearLayout>
 

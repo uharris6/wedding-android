@@ -1,5 +1,7 @@
 package com.uharris.wedding.presentation.sections.main
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -88,5 +90,16 @@ class MainActivity : DaggerAppCompatActivity(), ViewPager.OnPageChangeListener {
 
         viewPager.adapter = viewPagerAdapter
         viewPager.addOnPageChangeListener(this)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    companion object {
+
+        fun startActivity(a: Activity) {
+            a.startActivity(Intent(a, MainActivity::class.java))
+        }
     }
 }

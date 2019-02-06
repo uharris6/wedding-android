@@ -10,11 +10,13 @@ import javax.inject.Inject
 
 class SendWish @Inject constructor(
     private val wishesRemote: WishesRemote,
-    postExecutionThread: PostExecutionThread):
+    postExecutionThread: PostExecutionThread,
+    private val id: String):
     ObservableUseCase<Wish, SendWish.Params?>(postExecutionThread) {
     public override fun buildUseCaseObservable(params: SendWish.Params?): Observable<Wish> {
+        if (id == null) throw IllegalArgumentException("You need to send an Id")
         if (params == null) throw IllegalArgumentException("Params can't be null!")
-        return wishesRemote.sendWish(WishBody(params.userId, params.comment))
+        return wishesRemote.sendWish(WishBody(id, params.comment))
     }
 
     data class Params constructor(val userId: String, val comment: String) {

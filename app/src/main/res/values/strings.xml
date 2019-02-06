@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Wedding</string>
+    <string name="app_name">Boda Nana y Elías</string>
     <string name="title_home">Inicio</string>
     <string name="title_sites">Sitios de Interés</string>
     <string name="title_gift">Regalos de boda</string>
@@ -12,4 +12,5 @@
     <string name="title_activity_site_detail">SiteDetailActivity</string>
 
     <string name="site_email">Correo Electrónico: %1$s</string>
+    <string name="title_activity_add_photo">AddPhotoActivity</string>
 </resources>
