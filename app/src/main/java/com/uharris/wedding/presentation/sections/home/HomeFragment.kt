@@ -43,16 +43,12 @@ class HomeFragment : Fragment() {
 
         timer = object: CountDownTimer(timeInMillis, 86400000) {
             override fun onFinish() {
-                daysTextView.text = "Falta muy poco!!!"
+                dayTextView.text = "Falta muy poco!!!"
             }
 
             override fun onTick(millisUntilFinished: Long) {
                 val days = StringUtils.daysTime(millisUntilFinished)
-                if(days == "01")
-                    daysTextView.text = "día"
-                else
-                    daysTextView.text = "días"
-                dayTextView.text = days
+                dayTextView.text = "$days d"
             }
         }.start()
     }
