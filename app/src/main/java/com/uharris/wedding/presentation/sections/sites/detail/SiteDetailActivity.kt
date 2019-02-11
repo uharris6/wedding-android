@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -22,6 +23,7 @@ import kotlinx.android.synthetic.main.content_site_detail.*
 class SiteDetailActivity : AppCompatActivity() {
 
     private lateinit var site: Site
+    private val MAP_URL = "http://maps.google.com/maps/api/staticmap?sensor=false"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,14 +36,22 @@ class SiteDetailActivity : AppCompatActivity() {
             it.title = ""
         }
 
+        val archerBoldFont = Typeface.createFromAsset(assets,
+            "fonts/ArcherPro-Bold.otf")
+        val archerThinFont = Typeface.createFromAsset(assets,
+            "fonts/ArcherPro-Medium.otf")
+
         site = intent.getParcelableExtra(SITE_EXTRA)
 
         Picasso.get().load(site.picture).into(siteImage)
 
         collapsingToolbarLayout.title = site.name
+        collapsingToolbarLayout.setExpandedTitleTypeface(archerBoldFont)
         collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandedAppBar)
+        collapsingToolbarLayout.setCollapsedTitleTypeface(archerBoldFont)
         collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar)
 
+        siteDescription.typeface = archerThinFont
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             siteDescription.text = Html.fromHtml(site.description, Html.FROM_HTML_MODE_COMPACT)
         } else {
@@ -49,12 +59,16 @@ class SiteDetailActivity : AppCompatActivity() {
         }
 
         siteAddress.text = site.address
+        siteAddress.typeface = archerThinFont
 
+        siteEmailText.typeface = archerBoldFont
         val email = String.format(getString(R.string.site_email),site.email)
         siteEmailText.text = email
 
+        sitePhoneText.typeface = archerBoldFont
         sitePhoneText.text = "Teléfono: ${site.phone}"
 
+        siteWebText.typeface = archerBoldFont
         siteWeb.setOnClickListener {
             if (site.url != "") {
                 val i = Intent(Intent.ACTION_VIEW)
@@ -65,6 +79,16 @@ class SiteDetailActivity : AppCompatActivity() {
             }
         }
 
+        val mapUrl =
+            MAP_URL + "&key=AIzaSyA_C694olwHBRnGJ7ZaAvgZXKoxftPdHCQ&center=" + site.latitude + "," + site.longitude +
+                    "&zoom=16&size=600x300&scale=2&sensor=false&markers=color:red%7C" +
+                    site.latitude + "," + site.longitude
+
+        Picasso.get()
+            .load(mapUrl)
+            .into(siteMap)
+
+        siteGpsText.typeface = archerBoldFont
         siteGps.setOnClickListener {
             val gpsIntentUri = Uri.parse(
                 "google.navigation:q=${site.latitude},${site.longitude}&mode=d"

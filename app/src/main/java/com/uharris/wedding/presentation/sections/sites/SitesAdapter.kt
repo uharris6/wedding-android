@@ -1,5 +1,6 @@
 package com.uharris.wedding.presentation.sections.sites
 
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -63,8 +64,16 @@ class SitesAdapter(private var items: MutableList<Site>, private val listener: (
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item: Site, listener: (Site) -> Unit) = with(itemView) {
+            val archerBoldFont = Typeface.createFromAsset(
+                context.assets,
+                "fonts/ArcherPro-Bold.otf")
+            val archerThinFont = Typeface.createFromAsset(
+                context.assets,
+                "fonts/ArcherPro-Medium.otf")
             Picasso.get().load(item.picture).into(siteImage)
+            siteTitle.typeface = archerBoldFont
             siteTitle.text = item.name
+            siteAddress.typeface = archerThinFont
             siteAddress.text = item.address
             setOnClickListener { listener(item) }
         }
@@ -72,6 +81,10 @@ class SitesAdapter(private var items: MutableList<Site>, private val listener: (
 
     class HeaderHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind(text: String) = with(itemView) {
+            val archerBoldFont = Typeface.createFromAsset(
+                context.assets,
+                "fonts/ArcherPro-Bold.otf")
+            headerTitle.typeface = archerBoldFont
             headerTitle.text = text
         }
     }

@@ -21,38 +21,45 @@
             android:roundIcon="@mipmap/ic_launcher"
             android:supportsRtl="true"
             android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".presentation.sections.splash.SplashActivity">
+        <activity
+                android:name=".presentation.sections.home.invitation.InvitationActivity"
+                android:label="@string/title_activity_invitation"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme.NoActionBar.NoActionBar">
+        </activity>
+        <activity android:name=".presentation.sections.splash.SplashActivity"
+                  android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.sections.photos.detail.DetailPhotoActivity">
+        <activity android:name=".presentation.sections.photos.detail.DetailPhotoActivity"
+                  android:screenOrientation="portrait">
         </activity>
         <activity
                 android:name=".presentation.sections.photos.add.AddPhotoActivity"
                 android:label="@string/title_activity_add_photo"
+                android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar.NoActionBar">
         </activity>
         <activity
                 android:name=".presentation.sections.sites.detail.SiteDetailActivity"
                 android:label="@string/title_activity_site_detail"
+                android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar.NoActionBar">
         </activity>
         <activity
                 android:name=".presentation.sections.register.RegisterActivity"
                 android:label="@string/title_activity_register"
+                android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar.NoActionBar">
         </activity>
         <activity
                 android:name=".presentation.sections.main.MainActivity"
+                android:screenOrientation="portrait"
                 android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
 
         <provider
@@ -64,6 +71,10 @@
                     android:name="android.support.FILE_PROVIDER_PATHS"
                     android:resource="@xml/file_paths"/>
         </provider>
+
+        <meta-data
+                android:name="com.google.android.geo.API_KEY"
+                android:value="AIzaSyC5u4Lx7HpewneEdW2anKAF4ziYMPE79cs" />
     </application>
 
 </manifest>

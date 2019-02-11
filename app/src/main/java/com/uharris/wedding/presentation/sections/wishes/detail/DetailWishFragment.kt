@@ -1,6 +1,7 @@
 package com.uharris.wedding.presentation.sections.wishes.detail
 
 
+import android.graphics.Typeface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -48,7 +49,14 @@ class DetailWishFragment : DialogFragment() {
 
         val wish = arguments?.getParcelable<Wish>(WISH_EXTRA)
 
+        val archerBoldFont = Typeface.createFromAsset(context?.assets,
+            "fonts/ArcherPro-Bold.otf")
+        val archerThinFont = Typeface.createFromAsset(context?.assets,
+            "fonts/ArcherPro-Medium.otf")
+
+        wishTextView.typeface = archerThinFont
         wishTextView.text = wish?.comment
+        nameTextView.typeface = archerBoldFont
         nameTextView.text = "${wish?.user?.firstName} ${wish?.user?.lastName}"
     }
 

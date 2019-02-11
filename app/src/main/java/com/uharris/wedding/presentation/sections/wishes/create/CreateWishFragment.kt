@@ -3,6 +3,7 @@ package com.uharris.wedding.presentation.sections.wishes.create
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.Typeface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -55,6 +56,10 @@ class CreateWishFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val archerThinFont = Typeface.createFromAsset(context?.assets,
+            "fonts/ArcherPro-Medium.otf")
+        wishEditText.typeface = archerThinFont
 
         sendButton.setOnClickListener {
             if(wishEditText.text.toString().trim().isNullOrBlank()) {

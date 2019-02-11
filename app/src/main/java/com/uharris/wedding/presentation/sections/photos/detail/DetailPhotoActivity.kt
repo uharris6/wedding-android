@@ -2,6 +2,7 @@ package com.uharris.wedding.presentation.sections.photos.detail
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.squareup.picasso.Picasso
@@ -17,6 +18,11 @@ class DetailPhotoActivity : AppCompatActivity() {
 
         val photo = intent.getParcelableExtra<Photo>(PHOTO_EXTRA)
 
+        val archerBoldFont = Typeface.createFromAsset(
+            assets,
+            "fonts/ArcherPro-Bold.otf")
+
+        titleTextView.typeface = archerBoldFont
         titleTextView.text = photo.title
         Picasso.get().load(photo.url).into(photoImageView)
 

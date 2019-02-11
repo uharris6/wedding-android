@@ -21,7 +21,7 @@
                     android:padding="16dp"
                     android:orientation="vertical">
                 <TextView
-                        android:id="@+id/account_wells_fargo"
+                        android:id="@+id/accountFacebank"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
@@ -30,28 +30,28 @@
                         android:text="Facebank"/>
 
                 <TextView
-                        android:id="@+id/account_number_wells_fargo"
+                        android:id="@+id/accountNumberFacebank"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="18sp"
                         android:text="21580007537"/>
 
                 <TextView
-                        android:id="@+id/account_aba_wells_fargo"
+                        android:id="@+id/accountAbaFacebank"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
                         android:text="ABA: 021502189"/>
 
                 <TextView
-                        android:id="@+id/account_swift_wells_fargo"
+                        android:id="@+id/accountSwiftFacebank"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
                         android:text="SWIFT: FILCPR22"/>
 
                 <TextView
-                        android:id="@+id/account_name_wells_fargo"
+                        android:id="@+id/accountNameFacebank"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
@@ -59,7 +59,7 @@
                         android:text="Ariana Emilia Cabrera Acevedo"/>
 
                 <TextView
-                        android:id="@+id/account_address_wells_fargo"
+                        android:id="@+id/accountAddressFacebank"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
@@ -79,6 +79,7 @@
                     android:padding="16dp"
                     android:orientation="vertical">
                 <TextView
+                        android:id="@+id/zelle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
@@ -87,12 +88,14 @@
                         android:text="Zelle"/>
 
                 <TextView
+                        android:id="@+id/nameZelle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="18sp"
                         android:text="Elías Tarbay"/>
 
                 <TextView
+                        android:id="@+id/emailZelle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
@@ -113,7 +116,7 @@
                     android:padding="16dp"
                     android:orientation="vertical">
                 <TextView
-                        android:id="@+id/account_mercantil"
+                        android:id="@+id/accountMercantil"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
@@ -122,14 +125,14 @@
                         android:text="Banco Mercantil"/>
 
                 <TextView
-                        android:id="@+id/account_number_mercantil"
+                        android:id="@+id/accountNumberMercantil"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="18sp"
                         android:text="0105 0230 611230074708"/>
 
                 <TextView
-                        android:id="@+id/account_name_mercantil"
+                        android:id="@+id/accountNameMercantil"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
@@ -137,14 +140,14 @@
                         android:text="Elias Tarbay"/>
 
                 <TextView
-                        android:id="@+id/account_id_mercantil"
+                        android:id="@+id/accountIdMercantil"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
                         android:text="CI: 19.682.573"/>
 
                 <TextView
-                        android:id="@+id/account_email_mercantil"
+                        android:id="@+id/accountEmailMercantil"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"

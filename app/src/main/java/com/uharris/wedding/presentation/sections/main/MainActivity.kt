@@ -2,11 +2,14 @@ package com.uharris.wedding.presentation.sections.main
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.widget.TextView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.viewpager.widget.ViewPager
 import com.uharris.wedding.R
 import com.uharris.wedding.presentation.sections.gift.GiftFragment
@@ -71,10 +74,20 @@ class MainActivity : DaggerAppCompatActivity(), ViewPager.OnPageChangeListener {
         setContentView(R.layout.activity_main)
         AndroidInjection.inject(this)
         setSupportActionBar(toolbar)
-
+        toolbar.changeToolbarFont()
         setUpViewPager()
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+    }
+
+    fun Toolbar.changeToolbarFont(){
+        for (i in 0 until childCount) {
+            val view = getChildAt(i)
+            if (view is TextView && view.text == title) {
+                view.typeface = Typeface.createFromAsset(view.context.assets, "fonts/ArcherPro-Bold.otf")
+                break
+            }
+        }
     }
 
     private lateinit var viewPagerAdapter: MainFragmentAdapter
