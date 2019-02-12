@@ -62,6 +62,7 @@ class CreateWishFragment : DialogFragment() {
         wishEditText.typeface = archerThinFont
 
         sendButton.setOnClickListener {
+            sendButton.isEnabled = false
             if(wishEditText.text.toString().trim().isNullOrBlank()) {
                 Toast.makeText(context, "Por favor, escriba un deseo para los novios.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener

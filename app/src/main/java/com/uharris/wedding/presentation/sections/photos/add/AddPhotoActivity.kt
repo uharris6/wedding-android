@@ -68,6 +68,7 @@ class AddPhotoActivity : AppCompatActivity() {
         }
 
         sendButton.setOnClickListener {
+            sendButton.isEnabled = false
             if(selectedImageFile == null){
                 Toast.makeText(this, "Por favor, seleccioné una foto.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -120,8 +121,10 @@ class AddPhotoActivity : AppCompatActivity() {
                 val contentURI = data.data
                 try {
                     val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, contentURI)
-                    photoImageView.setImageBitmap(bitmap)
-                    val file = mediaUtils.saveImage(bitmap)
+                    val rotatedBitmap = mediaUtils.modifyOrientation(bitmap, contentURI?.toString() ?: "")
+//                    photoImageView.setImageBitmap(rotatedBitmap)
+                    Picasso.get().load(contentURI).into(photoImageView)
+                    val file = mediaUtils.saveImage(rotatedBitmap)
                     selectedImageFile = file
                 } catch (e: IOException) {
                     e.printStackTrace()

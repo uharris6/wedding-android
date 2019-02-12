@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 import com.uharris.wedding.R
 import com.uharris.wedding.domain.model.Photo
@@ -29,7 +30,7 @@ class PhotosAdapter(private var items: MutableList<Photo>, private val listener:
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item: Photo, listener: (Photo) -> Unit) = with(itemView) {
-            Picasso.get().load(item.url).into(photoImageView)
+            Glide.with(itemView).load(item.url).into(photoImageView)
             setOnClickListener { listener(item) }
         }
     }

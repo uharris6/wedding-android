@@ -19,6 +19,9 @@ import java.util.*
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
 import com.uharris.wedding.R
+import android.graphics.Matrix
+import androidx.exifinterface.media.ExifInterface
+
 
 class MediaUtils(val activity: Activity) {
 
@@ -267,6 +270,38 @@ class MediaUtils(val activity: Activity) {
             // Save a file: path for use with ACTION_VIEW intents
             mCurrentPhotoPath = absolutePath
         }
+    }
+
+    @Throws(IOException::class)
+    fun modifyOrientation(bitmap: Bitmap, absolutePath: String): Bitmap {
+        val ei = ExifInterface(absolutePath)
+        val orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
+
+        when (orientation) {
+            ExifInterface.ORIENTATION_ROTATE_90 -> return rotate(bitmap, 90f)
+
+            ExifInterface.ORIENTATION_ROTATE_180 -> return rotate(bitmap, 180f)
+
+            ExifInterface.ORIENTATION_ROTATE_270 -> return rotate(bitmap, 270f)
+
+            ExifInterface.ORIENTATION_FLIP_HORIZONTAL -> return flip(bitmap, true, false)
+
+            ExifInterface.ORIENTATION_FLIP_VERTICAL -> return flip(bitmap, false, true)
+
+            else -> return bitmap
+        }
+    }
+
+    fun rotate(bitmap: Bitmap, degrees: Float): Bitmap {
+        val matrix = Matrix()
+        matrix.postRotate(degrees)
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+    }
+
+    fun flip(bitmap: Bitmap, horizontal: Boolean, vertical: Boolean): Bitmap {
+        val matrix = Matrix()
+        matrix.preScale(if (horizontal) -1f else 1f, if (vertical) -1f else 1f)
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
     }
 
     companion object {
