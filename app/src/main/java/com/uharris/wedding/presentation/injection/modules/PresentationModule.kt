@@ -2,6 +2,7 @@ package com.uharris.wedding.presentation.injection.modules
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.uharris.wedding.presentation.base.BaseViewModel
 import com.uharris.wedding.presentation.base.ViewModelFactory
 import com.uharris.wedding.presentation.sections.photos.PhotosViewModel
 import com.uharris.wedding.presentation.sections.photos.add.AddPhotoViewModel

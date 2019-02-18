@@ -1,17 +1,14 @@
 package com.uharris.wedding.domain.usecases.actions
 
 import com.uharris.wedding.data.SitesRemote
-import com.uharris.wedding.domain.executor.PostExecutionThread
+import com.uharris.wedding.data.base.Failure
+import com.uharris.wedding.data.functional.Either
 import com.uharris.wedding.domain.model.Site
-import com.uharris.wedding.domain.usecases.base.ObservableUseCase
-import io.reactivex.Observable
+import com.uharris.wedding.domain.usecases.base.UseCase
 import javax.inject.Inject
 
-class FetchSites @Inject constructor(
-    private val sitesRemote: SitesRemote,
-    postExecutionThread: PostExecutionThread
-): ObservableUseCase<List<Site>, Nothing?>(postExecutionThread) {
-    override fun buildUseCaseObservable(params: Nothing?): Observable<List<Site>> {
+class FetchSites @Inject constructor(private val sitesRemote: SitesRemote): UseCase<List<Site>, UseCase.None>() {
+    override suspend fun run(params: None): Either<Failure, List<Site>> {
         return sitesRemote.getSites()
     }
 }

@@ -2,10 +2,10 @@ package com.uharris.wedding.data
 
 import com.uharris.wedding.domain.model.Wish
 import com.uharris.wedding.domain.model.body.WishBody
-import io.reactivex.Observable
+import kotlinx.coroutines.Deferred
 
 interface WishesRemote {
-    fun sendWish(wishBody: WishBody): Observable<Wish>
+    fun sendWish(wishBody: WishBody): Deferred<Wish>
 
-    fun getWishes(): Observable<List<Wish>>
+    fun getWishes(): Deferred<List<Wish>>
 }

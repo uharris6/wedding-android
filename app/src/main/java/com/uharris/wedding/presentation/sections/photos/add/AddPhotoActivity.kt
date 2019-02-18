@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.squareup.picasso.Picasso
 import com.uharris.wedding.R
 import com.uharris.wedding.domain.model.Photo
+import com.uharris.wedding.presentation.base.BaseActivity
 import com.uharris.wedding.presentation.base.ViewModelFactory
 import com.uharris.wedding.presentation.state.Resource
 import com.uharris.wedding.presentation.state.ResourceState
@@ -28,7 +29,7 @@ import javax.inject.Inject
 import com.uharris.wedding.presentation.sections.photos.PhotosFragment
 
 
-class AddPhotoActivity : AppCompatActivity() {
+class AddPhotoActivity : BaseActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -86,6 +87,7 @@ class AddPhotoActivity : AppCompatActivity() {
     private fun handleDataState(resource: Resource<Photo>) {
         when(resource.status){
             ResourceState.SUCCESS -> {
+                hideLoader()
                 resource.data?.let {
                     val returnIntent = Intent()
                     returnIntent.putExtra(PhotosFragment.PHOTO_EXTRA, it)
@@ -94,8 +96,12 @@ class AddPhotoActivity : AppCompatActivity() {
                     finish()
                 }
             }
-            ResourceState.LOADING -> {}
-            ResourceState.ERROR -> {}
+            ResourceState.LOADING -> {
+                showLoader()
+            }
+            ResourceState.ERROR -> {
+                hideLoader()
+            }
         }
     }
 

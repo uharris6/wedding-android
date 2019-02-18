@@ -1,9 +1,10 @@
 package com.uharris.wedding.data
 
+import com.uharris.wedding.data.base.Failure
+import com.uharris.wedding.data.functional.Either
 import com.uharris.wedding.domain.model.Site
-import io.reactivex.Observable
 
 interface SitesRemote {
 
-    fun getSites(): Observable<List<Site>>
+    suspend fun getSites(): Either<Failure, List<Site>>
 }

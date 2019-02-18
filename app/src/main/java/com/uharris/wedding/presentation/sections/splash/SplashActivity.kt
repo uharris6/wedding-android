@@ -15,15 +15,15 @@ class SplashActivity : AppCompatActivity() {
     private val handler = Handler()
 
     private val mRunnable: Runnable = Runnable {
-        if (!isFinishing) {
-            if (id.isEmpty()) {
-                RegisterActivity.startActivity(this)
-                finish()
-            } else {
+//        if (!isFinishing) {
+//            if (id.isEmpty()) {
+//                RegisterActivity.startActivity(this)
+//                finish()
+//            } else {
                 MainActivity.startActivity(this)
                 finish()
-            }
-        }
+//            }
+//        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

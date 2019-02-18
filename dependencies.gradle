@@ -41,6 +41,7 @@ ext {
     androidSupportRulesVersion = '1.0.0'
     dexmakerMockitoversion = '2.2.0'
     runnerVersion = '0.5'
+    kotlinCoroutineVersion = "1.1.1"
 
     androidDependencies = [
             kotlin           : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotlinVersion}",
@@ -56,8 +57,7 @@ ext {
             okHttp           : "com.squareup.okhttp3:okhttp:${okHttpVersion}",
             okHttpLogger     : "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}",
             retrofit         : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
-            retrofitConverter: "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
-            retrofitAdapter  : "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}"
+            retrofitConverter: "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
     ]
 
     diDependencies = [
@@ -97,5 +97,10 @@ ext {
             roomRuntime:        "android.arch.persistence.room:runtime:${roomVersion}",
             roomCompiler:       "android.arch.persistence.room:compiler:${roomVersion}",
             roomRxJava:         "android.arch.persistence.room:rxjava2:${roomVersion}"
+    ]
+
+    coroutineDependencies = [
+            coroutineAndroid: "org.jetbrains.kotlinx:kotlinx-coroutines-android:${kotlinCoroutineVersion}",
+            coroutineCore: "org.jetbrains.kotlinx:kotlinx-coroutines-core:${kotlinCoroutineVersion}"
     ]
 }

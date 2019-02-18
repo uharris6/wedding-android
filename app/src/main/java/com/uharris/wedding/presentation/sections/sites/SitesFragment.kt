@@ -13,7 +13,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.uharris.wedding.R
+import com.uharris.wedding.data.base.Failure
 import com.uharris.wedding.domain.model.Site
+import com.uharris.wedding.presentation.base.BaseFragment
 import com.uharris.wedding.presentation.base.ViewModelFactory
 import com.uharris.wedding.presentation.sections.sites.detail.SiteDetailActivity
 import com.uharris.wedding.presentation.state.Resource
@@ -22,7 +24,7 @@ import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_sites.*
 import javax.inject.Inject
 
-class SitesFragment : Fragment() {
+class SitesFragment : BaseFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -61,6 +63,10 @@ class SitesFragment : Fragment() {
                 handleDataState(it)
             }
         })
+
+        sitesViewModel.failure.observe(this, Observer {
+
+        })
         sitesViewModel.fetchSites()
     }
 
@@ -81,4 +87,7 @@ class SitesFragment : Fragment() {
         }
     }
 
+    private fun handleFailure(failure: Failure) {
+        showMessage(failure.toString())
+    }
 }

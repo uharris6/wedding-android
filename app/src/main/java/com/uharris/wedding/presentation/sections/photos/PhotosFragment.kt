@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.uharris.wedding.R
+import com.uharris.wedding.data.base.Failure
 import com.uharris.wedding.domain.model.Photo
+import com.uharris.wedding.presentation.base.BaseFragment
 import com.uharris.wedding.presentation.base.ViewModelFactory
 import com.uharris.wedding.presentation.sections.photos.add.AddPhotoActivity
 import com.uharris.wedding.presentation.sections.photos.detail.DetailPhotoActivity
@@ -27,7 +29,7 @@ import javax.inject.Inject
  * A simple [Fragment] subclass.
  *
  */
-class PhotosFragment : Fragment() {
+class PhotosFragment : BaseFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -75,12 +77,18 @@ class PhotosFragment : Fragment() {
         adapter = PhotosAdapter(photos) {
             DetailPhotoActivity.startActivity((context as Activity), it)
         }
+        photosRecyclerView.setHasFixedSize(true)
+        photosRecyclerView.setItemViewCacheSize(20)
         photosRecyclerView.adapter = adapter
 
         photosViewModel.photosLiveData.observe(this, Observer {
             it?.let {
                 handleDataState(it)
             }
+        })
+
+        photosViewModel.failure.observe(this, Observer {
+            handleFailure(it)
         })
         photosViewModel.fetchPhotos()
     }
@@ -100,6 +108,10 @@ class PhotosFragment : Fragment() {
             ResourceState.ERROR -> {
             }
         }
+    }
+
+    private fun handleFailure(failure: Failure) {
+        showMessage(failure.toString())
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
