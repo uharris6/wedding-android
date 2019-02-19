@@ -59,13 +59,11 @@ class SitesFragment : BaseFragment() {
         sitesRecyclerView.adapter = adapter
 
         sitesViewModel.liveData.observe(this, Observer {
-            it?.let {
-                handleDataState(it)
-            }
+            handleDataState(it)
         })
 
         sitesViewModel.failure.observe(this, Observer {
-
+            handleFailure(it)
         })
         sitesViewModel.fetchSites()
     }

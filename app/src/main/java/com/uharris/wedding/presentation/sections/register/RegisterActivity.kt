@@ -40,9 +40,7 @@ class RegisterActivity : BaseActivity() {
         registerViewModel = ViewModelProviders.of(this, viewModelFactory).get(RegisterViewModel::class.java)
 
         registerViewModel.liveData.observe(this, Observer {
-            it?.let {
-                handleDataState(it)
-            }
+            handleDataState(it)
         })
 
         val archerBoldFont = Typeface.createFromAsset(assets,
@@ -59,15 +57,7 @@ class RegisterActivity : BaseActivity() {
             val lastName = lastNameEditText.text.toString().trim()
             val code = codeEditText.text.toString().trim()
 
-            if(!code.isNullOrBlank() && code.toLowerCase() == "230219"){
-                if(name.isNullOrBlank() && lastName.isNullOrBlank()) {
-                    Toast.makeText(this, "El código ingresado es incorrecto.", Toast.LENGTH_SHORT).show()
-                } else {
-                    registerViewModel.attempRegisterUser(name, "", lastName)
-                }
-            }else {
-                Toast.makeText(this, "El código ingresado es incorrecto.", Toast.LENGTH_SHORT).show()
-            }
+            registerViewModel.attemptRegisterUser(name, "", lastName, code)
         }
     }
 
@@ -94,7 +84,7 @@ class RegisterActivity : BaseActivity() {
 
             ResourceState.ERROR -> {
                 hideLoader()
-                Toast.makeText(this, "Hubo error en el servidor. Intentelo de nuevo.", Toast.LENGTH_SHORT).show()
+                showMessage(resource.message ?: "")
             }
         }
     }

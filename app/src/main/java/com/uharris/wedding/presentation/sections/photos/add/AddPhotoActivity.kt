@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.squareup.picasso.Picasso
 import com.uharris.wedding.R
+import com.uharris.wedding.data.base.Failure
 import com.uharris.wedding.domain.model.Photo
 import com.uharris.wedding.presentation.base.BaseActivity
 import com.uharris.wedding.presentation.base.ViewModelFactory
@@ -59,9 +60,11 @@ class AddPhotoActivity : BaseActivity() {
 
         addPhotoViewModel = ViewModelProviders.of(this, viewModelFactory).get(AddPhotoViewModel::class.java)
         addPhotoViewModel.photoLiveData.observe(this, Observer {
-            it?.let{
-                handleDataState(it)
-            }
+            handleDataState(it)
+        })
+
+        addPhotoViewModel.failure.observe(this, Observer {
+            handleFailure(it)
         })
 
         photoImageView.setOnClickListener {
@@ -103,6 +106,10 @@ class AddPhotoActivity : BaseActivity() {
                 hideLoader()
             }
         }
+    }
+
+    private fun handleFailure(failure: Failure) {
+        showMessage(failure.toString())
     }
 
     override fun onSupportNavigateUp(): Boolean {

@@ -82,9 +82,7 @@ class PhotosFragment : BaseFragment() {
         photosRecyclerView.adapter = adapter
 
         photosViewModel.photosLiveData.observe(this, Observer {
-            it?.let {
-                handleDataState(it)
-            }
+            handleDataState(it)
         })
 
         photosViewModel.failure.observe(this, Observer {

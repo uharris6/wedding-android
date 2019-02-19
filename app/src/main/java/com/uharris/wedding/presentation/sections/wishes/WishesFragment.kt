@@ -18,10 +18,12 @@ import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_wishes.*
 import javax.inject.Inject
 import android.view.*
+import com.uharris.wedding.data.base.Failure
+import com.uharris.wedding.presentation.base.BaseFragment
 import com.uharris.wedding.presentation.sections.wishes.detail.DetailWishFragment
 
 
-class WishesFragment : Fragment(), CreateWishFragment.CreateWishListener {
+class WishesFragment : BaseFragment(), CreateWishFragment.CreateWishListener {
     override fun getWish(wish: String) {
         wishesViewModel.sendWish(wish)
     }
@@ -59,9 +61,9 @@ class WishesFragment : Fragment(), CreateWishFragment.CreateWishListener {
     private lateinit var fragment: CreateWishFragment
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if(item?.itemId == R.id.action_create_wish) {
+        if (item?.itemId == R.id.action_create_wish) {
             fragment = CreateWishFragment.newInstance()
-            fragment.show(childFragmentManager,"create wish")
+            fragment.show(childFragmentManager, "create wish")
         }
         return true
     }
@@ -79,21 +81,22 @@ class WishesFragment : Fragment(), CreateWishFragment.CreateWishListener {
         wishesViewModel = ViewModelProviders.of(this, viewModelFactory).get(WishesViewModel::class.java)
 
         wishesViewModel.liveData.observe(this, Observer {
-            it?.let {
-                handleDataState(it)
-            }
+            handleDataState(it)
         })
+
+        wishesViewModel.failure.observe(this, Observer {
+            handleFailure(it)
+        })
+
         wishesViewModel.fetchWishes()
 
         wishesViewModel.wishLiveData.observe(this, Observer {
-            it?.let {
-                handleWishState(it)
-            }
+            handleWishState(it)
         })
     }
 
     private fun handleWishState(resource: Resource<Wish>) {
-        when(resource.status) {
+        when (resource.status) {
             ResourceState.SUCCESS -> {
                 resource.data?.let {
                     wishes.add(it)
@@ -101,8 +104,10 @@ class WishesFragment : Fragment(), CreateWishFragment.CreateWishListener {
                     fragment.dismiss()
                 }
             }
-            ResourceState.LOADING -> {}
-            ResourceState.ERROR -> {}
+            ResourceState.LOADING -> {
+            }
+            ResourceState.ERROR -> {
+            }
         }
     }
 
@@ -121,5 +126,9 @@ class WishesFragment : Fragment(), CreateWishFragment.CreateWishListener {
             ResourceState.ERROR -> {
             }
         }
+    }
+
+    private fun handleFailure(failure: Failure) {
+        showMessage(failure.toString())
     }
 }

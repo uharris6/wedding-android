@@ -1,49 +1,53 @@
 package com.uharris.wedding.presentation.sections.register
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import android.preference.PreferenceManager
 import androidx.lifecycle.MutableLiveData
 import com.uharris.wedding.domain.model.User
+import com.uharris.wedding.domain.usecases.actions.SendUser
+import com.uharris.wedding.presentation.base.BaseViewModel
 import com.uharris.wedding.presentation.state.Resource
 import com.uharris.wedding.presentation.state.ResourceState
 import javax.inject.Inject
 
 class RegisterViewModel @Inject constructor(
-    application: Application): AndroidViewModel(application) {
+    private val sendUser: SendUser,
+    application: Application
+) : BaseViewModel(application) {
 
     val liveData: MutableLiveData<Resource<User>> = MutableLiveData()
 
-    fun attempRegisterUser(firstName: String, nickname: String, lastName: String) {
+    fun attemptRegisterUser(firstName: String, nickname: String, lastName: String, code: String) {
         liveData.postValue(Resource(ResourceState.LOADING, null, null))
 
-        if(firstName.isNullOrBlank() || lastName.isNullOrBlank()) {
-            return liveData.postValue(Resource(ResourceState.ERROR, null, "Debe rellenar los campos de nombre y apellido"))
+        if(!code.isNullOrBlank() && code.toLowerCase() == "230219"){
+            if (firstName.isNullOrBlank() || lastName.isNullOrBlank()) {
+                return liveData.postValue(
+                    Resource(
+                        ResourceState.ERROR,
+                        null,
+                        "Debe rellenar los campos de nombre y apellido."
+                    )
+                )
+            } else {
+                sendUser(SendUser.Params(firstName, nickname, lastName)) { it.either(::handleFailure, ::handleUserSent) }
+            }
+        } else {
+            return liveData.postValue(
+                Resource(
+                    ResourceState.ERROR,
+                    null,
+                    "El código ingresado es incorrecto."
+                )
+            )
         }
+
+
 
         return
     }
 
-    override fun onCleared() {
-        super.onCleared()
+    private fun handleUserSent(user: User) {
+        liveData.postValue(Resource(ResourceState.SUCCESS, user, null))
     }
-
-//    inner class RegisterSubscriber : DisposableObserver<User>() {
-//        override fun onComplete() {}
-//
-//        override fun onNext(value: User) {
-//            val prefs = PreferenceManager.getDefaultSharedPreferences(getApplication())
-//            val editor = prefs.edit()
-//            editor.putString("userId", value.id)
-//            editor.putString("firstName", value.firstName)
-//            editor.putString("nickname", value.nickname)
-//            editor.putString("lastName", value.lastName)
-//            editor.apply()
-//
-//            liveData.postValue(Resource(ResourceState.SUCCESS, value, null))
-//        }
-//
-//        override fun onError(e: Throwable) {
-//            liveData.postValue(Resource(ResourceState.ERROR, null, e.localizedMessage))
-//        }
-//    }
 }

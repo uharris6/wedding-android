@@ -1,11 +1,12 @@
 package com.uharris.wedding.data
 
+import com.uharris.wedding.data.base.Failure
+import com.uharris.wedding.data.functional.Either
 import com.uharris.wedding.domain.model.Wish
 import com.uharris.wedding.domain.model.body.WishBody
-import kotlinx.coroutines.Deferred
 
 interface WishesRemote {
-    fun sendWish(wishBody: WishBody): Deferred<Wish>
+    suspend fun sendWish(wishBody: WishBody): Either<Failure, Wish>
 
-    fun getWishes(): Deferred<List<Wish>>
+    suspend fun getWishes(): Either<Failure, List<Wish>>
 }
