@@ -5,9 +5,7 @@ import android.content.Intent
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -28,14 +26,7 @@ import java.io.File
 import java.io.IOException
 import javax.inject.Inject
 import com.uharris.wedding.presentation.sections.photos.PhotosFragment
-import android.graphics.BitmapFactory
-import android.graphics.Bitmap
-import android.R.attr.path
 
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 class AddPhotoActivity : BaseActivity() {
 
     @Inject
