@@ -30,7 +30,7 @@ class PhotosAdapter(private var items: MutableList<Photo>, private val listener:
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item: Photo, listener: (Photo) -> Unit) = with(itemView) {
-            Glide.with(itemView).load(item.url).into(photoImageView)
+            Picasso.get().load(item.url).fit().centerCrop().into(photoImageView)
             setOnClickListener { listener(item) }
         }
     }

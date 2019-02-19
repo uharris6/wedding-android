@@ -75,6 +75,8 @@ class PhotosFragment : Fragment() {
         adapter = PhotosAdapter(photos) {
             DetailPhotoActivity.startActivity((context as Activity), it)
         }
+        photosRecyclerView.hasFixedSize()
+        photosRecyclerView.setItemViewCacheSize(20)
         photosRecyclerView.adapter = adapter
 
         photosViewModel.photosLiveData.observe(this, Observer {

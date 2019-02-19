@@ -12,8 +12,8 @@ android {
         applicationId "com.uharris.wedding"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 4
-        versionName "1.0.2"
+        versionCode 5
+        versionName "1.0.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "BASE_URL", "\"https://wedding-backend-app.herokuapp.com/\""

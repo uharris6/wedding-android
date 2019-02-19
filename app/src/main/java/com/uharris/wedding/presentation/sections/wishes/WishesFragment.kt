@@ -24,6 +24,7 @@ import com.uharris.wedding.presentation.sections.wishes.detail.DetailWishFragmen
 class WishesFragment : Fragment(), CreateWishFragment.CreateWishListener {
     override fun getWish(wish: String) {
         wishesViewModel.sendWish(wish)
+        fragment.dismiss()
     }
 
     @Inject

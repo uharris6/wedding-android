@@ -22,7 +22,6 @@ import com.uharris.wedding.R
 import android.graphics.Matrix
 import androidx.exifinterface.media.ExifInterface
 
-
 class MediaUtils(val activity: Activity) {
 
     val REQUEST_CODE_ASK_PERMISSIONS_CAMERA = 123
@@ -295,14 +294,31 @@ class MediaUtils(val activity: Activity) {
     fun rotate(bitmap: Bitmap, degrees: Float): Bitmap {
         val matrix = Matrix()
         matrix.postRotate(degrees)
-        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+        val rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+        bitmap.recycle()
+        return rotatedBitmap
     }
 
     fun flip(bitmap: Bitmap, horizontal: Boolean, vertical: Boolean): Bitmap {
         val matrix = Matrix()
         matrix.preScale(if (horizontal) -1f else 1f, if (vertical) -1f else 1f)
-        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+        val rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+        bitmap.recycle()
+        return rotatedBitmap
     }
+
+    fun getPathFromURI(contentUri: Uri): String? {
+        var res: String? = null
+        val proj = arrayOf(MediaStore.Images.Media.DATA)
+        val cursor = activity.contentResolver.query(contentUri, proj, null, null, null)
+        if (cursor?.moveToFirst() == true) {
+            val columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            res = cursor.getString(columnIndex)
+        }
+        cursor?.close()
+        return res
+    }
+
 
     companion object {
         const val GALLERY: Int = 1000

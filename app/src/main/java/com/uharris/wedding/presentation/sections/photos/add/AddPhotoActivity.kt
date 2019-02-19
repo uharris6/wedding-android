@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.squareup.picasso.Picasso
 import com.uharris.wedding.R
 import com.uharris.wedding.domain.model.Photo
+import com.uharris.wedding.presentation.base.BaseActivity
 import com.uharris.wedding.presentation.base.ViewModelFactory
 import com.uharris.wedding.presentation.state.Resource
 import com.uharris.wedding.presentation.state.ResourceState
@@ -26,9 +27,11 @@ import java.io.File
 import java.io.IOException
 import javax.inject.Inject
 import com.uharris.wedding.presentation.sections.photos.PhotosFragment
+import android.graphics.BitmapFactory
+import android.graphics.Bitmap
+import android.R.attr.path
 
-
-class AddPhotoActivity : AppCompatActivity() {
+class AddPhotoActivity : BaseActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -86,6 +89,7 @@ class AddPhotoActivity : AppCompatActivity() {
     private fun handleDataState(resource: Resource<Photo>) {
         when(resource.status){
             ResourceState.SUCCESS -> {
+                hideLoader()
                 resource.data?.let {
                     val returnIntent = Intent()
                     returnIntent.putExtra(PhotosFragment.PHOTO_EXTRA, it)
@@ -94,8 +98,12 @@ class AddPhotoActivity : AppCompatActivity() {
                     finish()
                 }
             }
-            ResourceState.LOADING -> {}
-            ResourceState.ERROR -> {}
+            ResourceState.LOADING -> {
+                showLoader()
+            }
+            ResourceState.ERROR -> {
+                hideLoader()
+            }
         }
     }
 
@@ -118,14 +126,26 @@ class AddPhotoActivity : AppCompatActivity() {
 
         if (requestCode == MediaUtils.GALLERY) {
             if (data != null) {
-                val contentURI = data.data
+                var contentURI = data.data
                 try {
-                    val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, contentURI)
-                    val rotatedBitmap = mediaUtils.modifyOrientation(bitmap, contentURI?.toString() ?: "")
-//                    photoImageView.setImageBitmap(rotatedBitmap)
-                    Picasso.get().load(contentURI).into(photoImageView)
-                    val file = mediaUtils.saveImage(rotatedBitmap)
-                    selectedImageFile = file
+                    val path = mediaUtils.getPathFromURI(contentURI)
+                    if(path != null) {
+                        val f = File(path)
+                        contentURI = Uri.fromFile(f)
+                        Picasso.get().load(contentURI).into(photoImageView)
+
+                        selectedImageFile = f
+                    }
+//                    val imageStream = contentResolver.openInputStream(imageUri)
+//                    val selectedImage = BitmapFactory.decodeStream(imageStream)
+//                    var file = mediaUtils.saveImage(selectedImage)
+//
+//                    val rotatedBitmap = mediaUtils.modifyOrientation(selectedImage, file?.absolutePath ?: "")
+////                    photoImageView.setImageBitmap(rotatedBitmap)
+//                    file = mediaUtils.saveImage(rotatedBitmap)
+//                    Picasso.get().load(file!!).into(photoImageView)
+//                    var newFile = mediaUtils.decodeFile(file!!)
+
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
