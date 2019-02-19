@@ -28,8 +28,14 @@ import java.io.File
 import java.io.IOException
 import javax.inject.Inject
 import com.uharris.wedding.presentation.sections.photos.PhotosFragment
+import android.graphics.BitmapFactory
+import android.graphics.Bitmap
+import android.R.attr.path
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 class AddPhotoActivity : BaseActivity() {
 
     @Inject
@@ -131,14 +137,26 @@ class AddPhotoActivity : BaseActivity() {
 
         if (requestCode == MediaUtils.GALLERY) {
             if (data != null) {
-                val contentURI = data.data
+                var contentURI = data.data
                 try {
-                    val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, contentURI)
-                    val rotatedBitmap = mediaUtils.modifyOrientation(bitmap, contentURI?.toString() ?: "")
-//                    photoImageView.setImageBitmap(rotatedBitmap)
-                    Picasso.get().load(contentURI).into(photoImageView)
-                    val file = mediaUtils.saveImage(rotatedBitmap)
-                    selectedImageFile = file
+                    val path = mediaUtils.getPathFromURI(contentURI)
+                    if(path != null) {
+                        val f = File(path)
+                        contentURI = Uri.fromFile(f)
+                        Picasso.get().load(contentURI).into(photoImageView)
+
+                        selectedImageFile = f
+                    }
+//                    val imageStream = contentResolver.openInputStream(imageUri)
+//                    val selectedImage = BitmapFactory.decodeStream(imageStream)
+//                    var file = mediaUtils.saveImage(selectedImage)
+//
+//                    val rotatedBitmap = mediaUtils.modifyOrientation(selectedImage, file?.absolutePath ?: "")
+////                    photoImageView.setImageBitmap(rotatedBitmap)
+//                    file = mediaUtils.saveImage(rotatedBitmap)
+//                    Picasso.get().load(file!!).into(photoImageView)
+//                    var newFile = mediaUtils.decodeFile(file!!)
+
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }

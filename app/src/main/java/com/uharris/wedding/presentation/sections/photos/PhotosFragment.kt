@@ -77,7 +77,7 @@ class PhotosFragment : BaseFragment() {
         adapter = PhotosAdapter(photos) {
             DetailPhotoActivity.startActivity((context as Activity), it)
         }
-        photosRecyclerView.setHasFixedSize(true)
+        photosRecyclerView.hasFixedSize()
         photosRecyclerView.setItemViewCacheSize(20)
         photosRecyclerView.adapter = adapter
 
