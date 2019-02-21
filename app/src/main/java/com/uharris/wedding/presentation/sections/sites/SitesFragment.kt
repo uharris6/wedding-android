@@ -85,7 +85,7 @@ class SitesFragment : BaseFragment() {
         }
     }
 
-    private fun handleFailure(failure: Failure) {
-        showMessage(failure.toString())
+    private fun handleFailure(failure: String) {
+        showMessage(failure)
     }
 }

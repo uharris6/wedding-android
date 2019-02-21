@@ -1,19 +1,20 @@
 package com.uharris.wedding.data.base
 
-import com.uharris.wedding.data.functional.Either
+import kotlinx.coroutines.Deferred
 import retrofit2.Response
+import java.io.IOException
 
 open class BaseRepository {
 
-    suspend fun <T: Any> safeApiCall(call: suspend () -> Response<T>, default: T): Either<Failure, T> {
+    suspend fun <T: Any> safeApiCall(call: Deferred<Response<T>>, default: T): Result<T> {
         return try {
-            val response = call.invoke()
+            val response = call.await()
             when (response.isSuccessful) {
-                true -> Either.Right((response.body() ?: default))
-                false -> Either.Left(Failure.ServerError)
+                true -> Result.Success(response.body() ?: default)
+                false -> Result.Success(default)
             }
         } catch (exception: Throwable) {
-            Either.Left(Failure.ServerError)
+            Result.Error(IOException("Error ocurred", exception))
         }
     }
 }

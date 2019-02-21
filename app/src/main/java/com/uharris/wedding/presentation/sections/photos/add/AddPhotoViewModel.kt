@@ -2,6 +2,7 @@ package com.uharris.wedding.presentation.sections.photos.add
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
+import com.uharris.wedding.data.base.Result
 import com.uharris.wedding.domain.model.Photo
 import com.uharris.wedding.domain.usecases.actions.UploadPhoto
 import com.uharris.wedding.presentation.base.BaseViewModel
@@ -18,7 +19,12 @@ class AddPhotoViewModel @Inject constructor(
 
     fun uploadPhoto(title: String, path: String) {
         photoLiveData.postValue(Resource(ResourceState.LOADING, null, null))
-        uploadPhoto(UploadPhoto.Params(title, path)){it.either(::handleFailure, ::handlePhotoUploaded)}
+        uploadPhoto(UploadPhoto.Params(title, path)){
+            when(it){
+                is Result.Success -> handlePhotoUploaded(it.data)
+                is Result.Error -> handleFailure(it.exception)
+            }
+        }
         return
     }
 

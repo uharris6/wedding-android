@@ -2,6 +2,7 @@ package com.uharris.wedding.presentation.sections.photos
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
+import com.uharris.wedding.data.base.Result
 import com.uharris.wedding.domain.model.Photo
 import com.uharris.wedding.domain.usecases.actions.FetchPhotos
 import com.uharris.wedding.domain.usecases.base.UseCase
@@ -18,7 +19,12 @@ class PhotosViewModel @Inject constructor(
 
     fun fetchPhotos(){
         photosLiveData.postValue(Resource(ResourceState.LOADING, null, null))
-        fetchPhotos(UseCase.None()){it.either(::handleFailure, ::handlePhotoList)}
+        fetchPhotos(UseCase.None()){
+           when(it){
+               is Result.Success -> handlePhotoList(it.data)
+               is Result.Error -> handleFailure(it.exception)
+           }
+        }
         return
     }
 

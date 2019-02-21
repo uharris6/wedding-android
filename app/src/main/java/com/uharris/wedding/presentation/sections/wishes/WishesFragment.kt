@@ -129,7 +129,7 @@ class WishesFragment : BaseFragment(), CreateWishFragment.CreateWishListener {
         }
     }
 
-    private fun handleFailure(failure: Failure) {
-        showMessage(failure.toString())
+    private fun handleFailure(failure: String) {
+        showMessage(failure)
     }
 }

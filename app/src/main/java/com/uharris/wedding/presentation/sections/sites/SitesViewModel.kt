@@ -2,6 +2,7 @@ package com.uharris.wedding.presentation.sections.sites
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
+import com.uharris.wedding.data.base.Result
 import com.uharris.wedding.domain.model.Site
 import com.uharris.wedding.domain.usecases.actions.FetchSites
 import com.uharris.wedding.domain.usecases.base.UseCase
@@ -18,7 +19,12 @@ class SitesViewModel @Inject constructor(
 
      fun fetchSites(){
         liveData.postValue(Resource(ResourceState.LOADING, null, null))
-        fetchSites(UseCase.None()){it.either(::handleFailure, ::handleSiteList)}
+        fetchSites(UseCase.None()){
+            when(it) {
+                is Result.Success -> handleSiteList(it.data)
+                is Result.Error -> handleFailure(it.exception)
+            }
+        }
         return
      }
 

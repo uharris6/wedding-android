@@ -6,6 +6,8 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'kotlin-allopen'
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -24,6 +26,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+}
+
+allOpen {
+    annotation('com.uharris.wedding.utils.Mockable')
 }
 
 dependencies {
@@ -81,4 +87,18 @@ dependencies {
     def coroutineDependencies = rootProject.ext.coroutineDependencies
     implementation coroutineDependencies.coroutineAndroid
     implementation coroutineDependencies.coroutineCore
+
+    testImplementation testDependencies.junit
+    testImplementation testDependencies.mockito
+    androidTestImplementation testDependencies.mockito
+    implementation testDependencies.mockito
+    testImplementation testDependencies.kotlinJUnit
+    implementation testDependencies.kotlinJUnit
+    testImplementation testDependencies.robolectric
+    testImplementation testDependencies.archTesting
+    testImplementation testDependencies.supportRunner
+    testImplementation testDependencies.supportRules
+    testImplementation testDependencies.kluent
+    androidTestImplementation testDependencies.mockitoAndroid
+    testImplementation testDependencies.retrofit
 }

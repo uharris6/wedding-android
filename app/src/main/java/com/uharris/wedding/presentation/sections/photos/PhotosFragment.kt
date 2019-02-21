@@ -108,8 +108,8 @@ class PhotosFragment : BaseFragment() {
         }
     }
 
-    private fun handleFailure(failure: Failure) {
-        showMessage(failure.toString())
+    private fun handleFailure(failure: String) {
+        showMessage(failure)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

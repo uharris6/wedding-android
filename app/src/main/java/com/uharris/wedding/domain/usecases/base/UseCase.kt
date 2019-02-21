@@ -1,16 +1,15 @@
 package com.uharris.wedding.domain.usecases.base
 
-import com.uharris.wedding.data.base.Failure
-import com.uharris.wedding.data.functional.Either
+import com.uharris.wedding.data.base.Result
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 abstract class UseCase<out Type, in Params> where Type : Any {
 
-    abstract suspend fun run(params: Params): Either<Failure, Type>
+    abstract suspend fun run(params: Params): Result<Type>
 
-    operator fun invoke(params: Params, onResult: (Either<Failure, Type>) -> Unit = {}) {
+    operator fun invoke(params: Params, onResult: (Result<Type>) -> Unit = {}) {
         val job = GlobalScope.async {
             run(params)
         }

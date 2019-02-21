@@ -3,14 +3,13 @@ package com.uharris.wedding.presentation.base
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.uharris.wedding.data.base.Failure
 
 abstract class BaseViewModel(
     application: Application) : AndroidViewModel(application) {
 
-    var failure: MutableLiveData<Failure> = MutableLiveData()
+    var failure: MutableLiveData<String> = MutableLiveData()
 
-    protected fun handleFailure(failure: Failure) {
-        this.failure.value = failure
+    protected fun handleFailure(exception: Exception) {
+        this.failure.value = exception.message
     }
 }

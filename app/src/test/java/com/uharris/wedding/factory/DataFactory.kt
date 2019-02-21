@@ -21,6 +21,6 @@ object DataFactory {
     }
 
     fun randomDouble(): Double {
-        return randomDouble()
+        return Math.random()
     }
 }

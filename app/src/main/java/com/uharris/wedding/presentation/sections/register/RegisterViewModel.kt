@@ -1,8 +1,8 @@
 package com.uharris.wedding.presentation.sections.register
 
 import android.app.Application
-import android.preference.PreferenceManager
 import androidx.lifecycle.MutableLiveData
+import com.uharris.wedding.data.base.Result
 import com.uharris.wedding.domain.model.User
 import com.uharris.wedding.domain.usecases.actions.SendUser
 import com.uharris.wedding.presentation.base.BaseViewModel
@@ -30,7 +30,12 @@ class RegisterViewModel @Inject constructor(
                     )
                 )
             } else {
-                sendUser(SendUser.Params(firstName, nickname, lastName)) { it.either(::handleFailure, ::handleUserSent) }
+                sendUser(SendUser.Params(firstName, nickname, lastName)) {
+                    when(it) {
+                        is Result.Success -> handleUserSent(it.data)
+                        is Result.Error -> handleFailure(it.exception)
+                    }
+                }
             }
         } else {
             return liveData.postValue(

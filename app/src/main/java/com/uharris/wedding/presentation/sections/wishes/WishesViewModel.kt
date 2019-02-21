@@ -4,6 +4,7 @@ import android.app.Application
 import android.preference.PreferenceManager
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.uharris.wedding.data.base.Result
 import com.uharris.wedding.data.functional.Either
 import com.uharris.wedding.domain.model.Wish
 import com.uharris.wedding.domain.usecases.actions.FetchWishes
@@ -25,13 +26,23 @@ class WishesViewModel @Inject constructor(
 
     fun fetchWishes(){
         liveData.postValue(Resource(ResourceState.LOADING, null, null))
-        fetchWishes(UseCase.None()){it.either(::handleFailure, ::handleWishList)}
+        fetchWishes(UseCase.None()){
+            when(it) {
+                is Result.Success -> handleWishList(it.data)
+                is Result.Error -> handleFailure(it.exception)
+            }
+        }
         return
     }
 
     fun sendWish(wish: String) {
         wishLiveData.postValue(Resource(ResourceState.LOADING, null, null))
-        sendWish(SendWish.Params( id, wish)){it.either(::handleFailure, ::handleWishSent)}
+        sendWish(SendWish.Params( id, wish)){
+            when(it) {
+                is Result.Success -> handleWishSent(it.data)
+                is Result.Error -> handleFailure(it.exception)
+            }
+        }
         return
     }
 
