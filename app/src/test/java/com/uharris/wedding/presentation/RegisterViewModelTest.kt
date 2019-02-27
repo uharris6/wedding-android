@@ -3,68 +3,135 @@ package com.uharris.wedding.presentation
 import android.app.Application
 import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.nhaarman.mockito_kotlin.any
-import com.nhaarman.mockito_kotlin.eq
-import com.nhaarman.mockito_kotlin.given
-import com.nhaarman.mockito_kotlin.whenever
-import com.uharris.wedding.BuildConfig
+import androidx.lifecycle.Observer
+import com.nhaarman.mockito_kotlin.*
 import com.uharris.wedding.data.base.Result
+import com.uharris.wedding.domain.model.Site
 import com.uharris.wedding.domain.model.User
 import com.uharris.wedding.domain.usecases.actions.SendUser
 import com.uharris.wedding.factory.ResponseFactory
-import com.uharris.wedding.presentation.base.BaseActivity
 import com.uharris.wedding.presentation.sections.register.RegisterViewModel
+import com.uharris.wedding.presentation.state.Resource
+import com.uharris.wedding.presentation.state.ResourceState
 import kotlinx.coroutines.runBlocking
-import org.amshove.kluent.shouldEqualTo
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
+import org.mockito.Captor
 import org.mockito.Mock
-import org.mockito.MockitoAnnotations
-import org.robolectric.RobolectricTestRunner
-import org.robolectric.RuntimeEnvironment
-import org.robolectric.annotation.Config
+import org.mockito.Mockito
 
-@RunWith(RobolectricTestRunner::class)
-@Config(
-    application = Application::class
-)
+@RunWith(JUnit4::class)
 class RegisterViewModelTest {
+
+    @get:Rule var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Mock
     private lateinit var sendUser: SendUser
+    @Mock
+    private lateinit var observer: Observer<Resource<User>>
     private lateinit var registerViewModel: RegisterViewModel
 
-    @Rule
-    @JvmField
-    val rule = InstantTaskExecutorRule()
+    @Captor
+    private lateinit var captor: KArgumentCaptor<(Result<User>) -> Unit>
 
     @Before
     fun setup() {
-        MockitoAnnotations.initMocks(this)
+        sendUser = mock()
+        observer = mock()
 
-        registerViewModel = RegisterViewModel(sendUser, RuntimeEnvironment.application)
+        captor = argumentCaptor()
+
+        val applicationMock = Mockito.mock(Application::class.java)
+        registerViewModel = RegisterViewModel(sendUser, applicationMock)
     }
 
     @Test
-    fun loadUserUpdateLiveData() {
+    fun loadUserReturnLoadingState() {
         val data = ResponseFactory.makeUserResponse()
 
-        given { runBlocking { sendUser.run(eq(any())) } }.willReturn(Result.Success(data))
-
-        registerViewModel.liveData.observeForever {
-            it.data?.let {
-                with(it) {
-                    id shouldEqualTo data.id
-                    firstName shouldEqualTo data.firstName
-                    nickname shouldEqualTo data.nickname
-                    lastName shouldEqualTo data.lastName
-                }
-            }
-        }
+        registerViewModel.liveData.observeForever(observer)
 
         registerViewModel.attemptRegisterUser(data.firstName, data.nickname, data.lastName, "230219")
+
+        assert(registerViewModel.liveData.value?.status == ResourceState.LOADING)
+    }
+
+
+    @Test
+    fun loadUserReturnSuccessState() {
+        val data = ResponseFactory.makeUserResponse()
+        val result = Result.Success(data)
+
+        registerViewModel.liveData.observeForever(observer)
+
+        registerViewModel.attemptRegisterUser(data.firstName, data.nickname, data.lastName, "230219")
+
+        runBlocking { verify(sendUser).invoke(any(), captor.capture()) }
+        captor.firstValue.invoke(result)
+
+        assert(registerViewModel.liveData.value?.status == ResourceState.SUCCESS)
+    }
+
+    @Test
+    fun loadUserReturnSuccessData() {
+        val data = ResponseFactory.makeUserResponse()
+        val result = Result.Success(data)
+
+        registerViewModel.liveData.observeForever(observer)
+
+        registerViewModel.attemptRegisterUser(data.firstName, data.nickname, data.lastName, "230219")
+
+        runBlocking { verify(sendUser).invoke(any(), captor.capture()) }
+        captor.firstValue.invoke(result)
+
+        assert(registerViewModel.liveData.value?.data == data)
+    }
+
+    @Test
+    fun loadUserReturnErrorEmptyCodeMessage(){
+        val data = ResponseFactory.makeUserResponse()
+
+        registerViewModel.liveData.observeForever(observer)
+
+        registerViewModel.attemptRegisterUser(data.firstName, data.nickname, data.lastName, "")
+
+        assert(registerViewModel.liveData.value?.status == ResourceState.ERROR)
+    }
+
+    @Test
+    fun loadUserReturnErrorWrongCodeMessage(){
+        val data = ResponseFactory.makeUserResponse()
+
+        registerViewModel.liveData.observeForever(observer)
+
+        registerViewModel.attemptRegisterUser(data.firstName, data.nickname, data.lastName, "23")
+
+        assert(registerViewModel.liveData.value?.status == ResourceState.ERROR)
+    }
+
+    @Test
+    fun loadUserReturnErrorEmptyNameMessage(){
+        val data = ResponseFactory.makeUserResponse()
+
+        registerViewModel.liveData.observeForever(observer)
+
+        registerViewModel.attemptRegisterUser("", data.nickname, data.lastName, "230219")
+
+        assert(registerViewModel.liveData.value?.status == ResourceState.ERROR)
+    }
+
+    @Test
+    fun loadUserReturnErrorEmptyLastNameMessage(){
+        val data = ResponseFactory.makeUserResponse()
+
+        registerViewModel.liveData.observeForever(observer)
+
+        registerViewModel.attemptRegisterUser(data.firstName, data.nickname, "", "230219")
+
+        assert(registerViewModel.liveData.value?.status == ResourceState.ERROR)
     }
 }

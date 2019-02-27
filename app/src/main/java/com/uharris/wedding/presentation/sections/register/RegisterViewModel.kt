@@ -18,7 +18,7 @@ class RegisterViewModel @Inject constructor(
     val liveData: MutableLiveData<Resource<User>> = MutableLiveData()
 
     fun attemptRegisterUser(firstName: String, nickname: String, lastName: String, code: String) {
-//        liveData.postValue(Resource(ResourceState.LOADING, null, null))
+        liveData.postValue(Resource(ResourceState.LOADING, null, null))
 
         if(!code.isNullOrBlank() && code.toLowerCase() == "230219"){
             if (firstName.isNullOrBlank() || lastName.isNullOrBlank()) {
