@@ -19,7 +19,7 @@ class SitesViewModel @Inject constructor(
 
      fun fetchSites(){
         liveData.postValue(Resource(ResourceState.LOADING, null, null))
-        fetchSites(UseCase.None()){
+        fetchSites.invoke(UseCase.None()) {
             when(it) {
                 is Result.Success -> handleSiteList(it.data)
                 is Result.Error -> handleFailure(it.exception)
