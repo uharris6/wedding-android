@@ -7,7 +7,6 @@ import com.nhaarman.mockito_kotlin.*
 import com.uharris.wedding.data.base.Result
 import com.uharris.wedding.domain.model.Site
 import com.uharris.wedding.domain.usecases.actions.FetchSites
-import com.uharris.wedding.domain.usecases.base.UseCase
 import com.uharris.wedding.factory.UtilsFactory
 import com.uharris.wedding.presentation.sections.sites.SitesViewModel
 import com.uharris.wedding.presentation.state.Resource
@@ -22,7 +21,6 @@ import org.mockito.Captor
 import org.mockito.Mock
 import org.mockito.Mockito
 
-
 @RunWith(JUnit4::class)
 class SitesViewModelTest {
 
@@ -31,15 +29,15 @@ class SitesViewModelTest {
 
     @Mock
     private lateinit var fetchSites: FetchSites
-    @Mock lateinit var observer: Observer<Resource<List<Site>>>
+    @Mock
+    private lateinit var observer: Observer<Resource<List<Site>>>
+    private lateinit var sitesViewModel: SitesViewModel
 
     @Captor
     private lateinit var captor: KArgumentCaptor<(Result<List<Site>>) -> Unit>
 
-    private lateinit var sitesViewModel: SitesViewModel
-
     @Before
-    fun setup(){
+    fun setup() {
         fetchSites = mock()
         observer = mock()
 
@@ -50,8 +48,9 @@ class SitesViewModelTest {
     }
 
     @Test
-    fun fetchSitesTriggersLoadingState() {
+    fun fetchSitesReturnLoadingState() {
         sitesViewModel.liveData.observeForever(observer)
+
         sitesViewModel.fetchSites()
 
         assert(sitesViewModel.liveData.value?.status == ResourceState.LOADING)
@@ -81,5 +80,4 @@ class SitesViewModelTest {
 
         assert(sitesViewModel.liveData.value?.data == data)
     }
-
 }
