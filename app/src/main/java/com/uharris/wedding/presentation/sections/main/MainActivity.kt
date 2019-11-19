@@ -4,15 +4,12 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.viewpager.widget.ViewPager
 import com.uharris.wedding.R
-import com.uharris.wedding.presentation.sections.gift.GiftFragment
 import com.uharris.wedding.presentation.sections.home.HomeFragment
 import com.uharris.wedding.presentation.sections.photos.PhotosFragment
 import com.uharris.wedding.presentation.sections.sites.SitesFragment
@@ -57,10 +54,6 @@ class MainActivity : DaggerAppCompatActivity(), ViewPager.OnPageChangeListener {
                 viewPager.currentItem = 2
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_gift -> {
-                viewPager.currentItem = 3
-                return@OnNavigationItemSelectedListener true
-            }
             R.id.navigation_wishes -> {
                 viewPager.currentItem = 4
                 return@OnNavigationItemSelectedListener true
@@ -98,7 +91,6 @@ class MainActivity : DaggerAppCompatActivity(), ViewPager.OnPageChangeListener {
         viewPagerAdapter.addFragment(HomeFragment())
         viewPagerAdapter.addFragment(SitesFragment())
         viewPagerAdapter.addFragment(PhotosFragment())
-        viewPagerAdapter.addFragment(GiftFragment())
         viewPagerAdapter.addFragment(WishesFragment())
 
         viewPager.adapter = viewPagerAdapter
