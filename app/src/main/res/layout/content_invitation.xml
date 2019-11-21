@@ -19,7 +19,7 @@
                 android:id="@+id/photoImageView" app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/invitation_image" android:layout_marginTop="32dp"/>
+                android:layout_marginTop="32dp"/>
         <TextView
                 android:text="Es recomedable ir bien abrigado a la recepción."
                 android:layout_width="0dp"

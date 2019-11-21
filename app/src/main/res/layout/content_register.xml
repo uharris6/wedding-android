@@ -23,7 +23,7 @@
             android:id="@+id/imageView" app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="16dp" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" app:layout_constraintDimensionRatio="1:1" app:srcCompat="@drawable/ic_logo"/>
+            android:layout_marginEnd="8dp" app:layout_constraintDimensionRatio="1:1" app:srcCompat="@drawable/foreground"/>
     <EditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"
