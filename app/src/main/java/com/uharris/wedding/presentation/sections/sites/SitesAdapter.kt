@@ -14,45 +14,19 @@ import kotlinx.android.synthetic.main.item_sites.view.*
 class SitesAdapter(private var items: MutableList<Site>, private val listener: (Site) -> Unit) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    val HEADER_VIEW_TYPE = 0
-    val LOCATION_VIEW_TYPE = 1
     var count = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if(viewType == HEADER_VIEW_TYPE) {
-             SitesAdapter.HeaderHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_header, parent, false))
-        } else {
-            return SitesAdapter.ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_sites, parent, false))
-        }
-    }
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_sites, parent, false))
 
-    override fun getItemViewType(position: Int): Int {
-        return if (position == 0) {
-            HEADER_VIEW_TYPE
-        } else if (position == 2) {
-            HEADER_VIEW_TYPE
-        } else {
-            LOCATION_VIEW_TYPE
-        }
     }
 
     override fun getItemCount(): Int {
-        if(items.size == 0)
-            return 0
-        return items.size + 2
+        return items.size
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int){
-        if (holder is SitesAdapter.HeaderHolder) {
-            if(position == 0) {
-                holder.bind("Ceremonia")
-            } else {
-                holder.bind("Recepción")
-            }
-            count += 1
-        } else {
-            (holder as ViewHolder).bind(items[position - count], listener)
-        }
+        (holder as ViewHolder).bind(items[position - count], listener)
     }
 
     fun setItems(items: MutableList<Site>) {
@@ -76,16 +50,6 @@ class SitesAdapter(private var items: MutableList<Site>, private val listener: (
             siteAddress.typeface = archerThinFont
             siteAddress.text = item.address
             setOnClickListener { listener(item) }
-        }
-    }
-
-    class HeaderHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        fun bind(text: String) = with(itemView) {
-            val archerBoldFont = Typeface.createFromAsset(
-                context.assets,
-                "fonts/ArcherPro-Bold.otf")
-            headerTitle.typeface = archerBoldFont
-            headerTitle.text = text
         }
     }
 }

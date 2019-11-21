@@ -67,6 +67,9 @@ class MainActivity : DaggerAppCompatActivity(), ViewPager.OnPageChangeListener {
         setContentView(R.layout.activity_main)
         AndroidInjection.inject(this)
         setSupportActionBar(toolbar)
+
+        toolbar_title.text = getString(R.string.app_name)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
         setUpViewPager()
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
