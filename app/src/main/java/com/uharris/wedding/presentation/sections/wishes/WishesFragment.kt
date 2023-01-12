@@ -79,6 +79,7 @@ class WishesFragment : Fragment(), CreateWishFragment.CreateWishListener {
 
         wishesViewModel = ViewModelProviders.of(this, viewModelFactory).get(WishesViewModel::class.java)
 
+        wishesViewModel.liveData.removeObservers(this)
         wishesViewModel.liveData.observe(this, Observer {
             it?.let {
                 handleDataState(it)
@@ -86,6 +87,7 @@ class WishesFragment : Fragment(), CreateWishFragment.CreateWishListener {
         })
         wishesViewModel.fetchWishes()
 
+        wishesViewModel.wishLiveData.removeObservers(this)
         wishesViewModel.wishLiveData.observe(this, Observer {
             it?.let {
                 handleWishState(it)
@@ -99,7 +101,6 @@ class WishesFragment : Fragment(), CreateWishFragment.CreateWishListener {
                 resource.data?.let {
                     wishes.add(it)
                     adapter.setItems(wishes)
-                    fragment.dismiss()
                 }
             }
             ResourceState.LOADING -> {}

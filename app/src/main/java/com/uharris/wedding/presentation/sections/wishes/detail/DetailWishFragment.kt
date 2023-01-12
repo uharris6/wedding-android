@@ -57,7 +57,7 @@ class DetailWishFragment : DialogFragment() {
         wishTextView.typeface = archerThinFont
         wishTextView.text = wish?.comment
         nameTextView.typeface = archerBoldFont
-        nameTextView.text = "${wish?.user?.firstName} ${wish?.user?.lastName}"
+        nameTextView.text = "${wish?.user?.firstName ?: ""} ${wish?.user?.lastName ?: ""}"
     }
 
 }

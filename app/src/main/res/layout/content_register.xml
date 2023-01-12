@@ -5,6 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/background"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/activity_register"
         tools:context=".presentation.sections.register.RegisterActivity">
@@ -23,7 +24,7 @@
             android:id="@+id/imageView" app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="16dp" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" app:layout_constraintDimensionRatio="1:1" app:srcCompat="@drawable/ic_logo"/>
+            android:layout_marginEnd="8dp" app:layout_constraintDimensionRatio="1:1" app:srcCompat="@drawable/foreground"/>
     <EditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"

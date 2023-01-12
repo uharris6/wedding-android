@@ -4,12 +4,12 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class Wish(
-    var user: User = User(),
+    var user: User? = null,
     var comment: String = ""
 ) : Parcelable {
     constructor(source: Parcel) : this(
         source.readParcelable<User>(User::class.java.classLoader),
-        source.readString()
+        source.readString() ?: ""
     )
 
     override fun describeContents() = 0

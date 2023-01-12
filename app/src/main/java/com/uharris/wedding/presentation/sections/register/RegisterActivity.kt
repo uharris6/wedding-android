@@ -31,11 +31,6 @@ class RegisterActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
         AndroidInjection.inject(this)
-        setSupportActionBar(toolbar)
-
-        supportActionBar?.let {
-            it.title = getString(R.string.app_name)
-        }
 
         registerViewModel = ViewModelProviders.of(this, viewModelFactory).get(RegisterViewModel::class.java)
 

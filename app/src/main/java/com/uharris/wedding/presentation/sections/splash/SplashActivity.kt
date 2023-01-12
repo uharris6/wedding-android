@@ -3,6 +3,7 @@ package com.uharris.wedding.presentation.sections.splash
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.view.WindowManager
 import com.uharris.wedding.R
 import com.uharris.wedding.presentation.sections.main.MainActivity
 import com.uharris.wedding.presentation.sections.register.RegisterActivity
@@ -24,6 +25,11 @@ class SplashActivity : AppCompatActivity() {
                 finish()
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

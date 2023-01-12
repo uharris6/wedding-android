@@ -36,7 +36,7 @@ class WishesAdapter(private var items: MutableList<Wish>, private val listener: 
                 context.assets,
                 "fonts/ArcherPro-Medium.otf")
             nameTextView.typeface = archerBoldFont
-            nameTextView.text = "${item.user.firstName} ${item.user.lastName}"
+            nameTextView.text = "${item.user?.firstName ?: ""} ${item.user?.lastName ?: ""}"
             commentTextView.typeface = archerThinFont
             commentTextView.text = item.comment
             setOnClickListener { listener(item) }

@@ -6,5 +6,6 @@
             android:id="@+id/action_create_wish"
             android:icon="@drawable/ic_add"
             android:title="Deseo"
+            app:iconTint="@color/colorAccent"
             app:showAsAction="always"/>
 </menu>
